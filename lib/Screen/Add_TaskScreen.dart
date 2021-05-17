@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_to_do_list/model/Task_Data.dart';
+import 'package:provider/provider.dart';
 
 class Add_TaskScreen extends StatelessWidget {
-
-  final Function addTaskCallback;
-
-  const Add_TaskScreen( this.addTaskCallback);
-
   @override
   Widget build(BuildContext context) {
     String newTaskTitle;
@@ -33,22 +30,22 @@ class Add_TaskScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: TextField(
                   autofocus: true,
-                  onChanged: (newText){
-                    newTaskTitle=newText;
+                  onChanged: (newText) {
+                    newTaskTitle = newText;
                   },
-
                 ),
               ),
               ElevatedButton(
                 child: Text('Commit'),
                 onPressed: () {
-
-                  addTaskCallback(newTaskTitle);
-
+               //این دستور تسک های جدید رو وارد لیست می کنیم
+                  Provider.of<Task_Data>(context, listen: false)
+                      .addTask(newTaskTitle);
+                  Navigator.pop(context);
                 },
                 style:
-                ElevatedButton.styleFrom(primary: Colors.lightBlueAccent),
-              )
+                    ElevatedButton.styleFrom(primary: Colors.lightBlueAccent),
+              ),
             ],
           ),
         ),
